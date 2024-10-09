@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>AgentAway</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <script type="module">
+      import { defineCustomElements } from 'https://cdn.jsdelivr.net/npm/@dytesdk/ui-kit@latest/loader/index.es2017.js';
+      defineCustomElements();
+    </script>
+    <script src="https://cdn.dyte.in/core/dyte2.js"></script>
+    <script src="../../dyte/functions.js"></script>
+    <style>
+        body{background:#fff;}        
+    </style>
+  </head>
+<body>
+<dyte-meeting id="mymeeting" show-setup-screen="true" />
+<script>
+const searchParams = new URL(window.location.href).searchParams;
+authToken = searchParams.get('authtoken');
+
+participant = GetStorage('getjson','aalparticipant');
+initiator = GetStorage('get','initiator');
+if(!authToken){
+  authToken = participant.token;
+}
+
+if(authToken){
+    meetings = DyteClient.init({authToken});
+    meetings.then((ms)=>{
+        document.getElementById('mymeeting').meeting = ms;
+    });
+    ///////////////
+    meetings.self.on('roomJoined', () => {
+        console.log("Successfully joined the room!");
+    });
+    ///////////////
+    meetings.self.on('roomLeft', ({ state }) => {
+        let thisInitiator = globalid+'-'+meetingId;
+        if (state === 'left') {
+          console.log('User has left the meeting');        
+          if(initiator === thisInitiator){
+              //stop live stream and kick out all participants....
+              KickAll(); stopLivestream(meetingId);
+              //update to database...
+              console.log("Left room and kicked others out.");
+          }else{console.log("Left room");}
+        }
+    });
+    //////////////////
+}else{
+  window.location.href = 'help.php?m=Authentication token is missing!';
+}
+</script>
+</body></html>

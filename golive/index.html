@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>AgentAway</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <script src="../dyte/functions.js"></script>
+    <style>
+        body{background:#f5f5f5;}
+        .btn1{padding:10px 10px; background:#080;color:#fff;width:150px;text-align:center; text-decoration:none;border-radius:3px;margin:10px auto;}
+        #joinbox{padding:30px 15px 35px 15px !important;border-radius:10px; margin:10% 5%; text-align:center;background:#fff;color:#111;}
+        #result{margin:0;font-size:12px; padding:2px 0;}
+        input[type="text"]{border:#ccc solid 1px; padding:10px; text-align:center;}
+        #joinbox,#mymeeting{display:none;}
+        .d-block{display:block;}
+        .fw-600{font-weight:600;}
+    </style>
+  </head>
+<body>
+	
+<div id="joinbox" class="shadow-sm">
+  <h3 class="mb-1 fw-600">Join Meeting</h3>
+  <p class="">You're about to join a meeting with an agent on agentaway.com<span id="restitled" style="font-weight:600;"></span>. Fill-in your name and click join button to begin.</p>
+  <small class="mb-3 block">By joining a meeting, you agree to our <a href="#" target="_Blank">Terms of Service</a> and <a href="#" target="_Blank">Privacy Statement</a></small>
+  <div id="inpMain">
+  <input type="text" name="name" id="name" style="width:90%;" placeholder="Enter Your Name:" />
+  <input type="hidden" name="phone" id="phone" value="" style="width:90%;" />
+  </div>
+
+  <div id="lvmain">
+      <div id="result"></div>
+      <a href="javascript:;" id="launch" class="btn btn-primary mt-2" onClick="AddPartByClient()"><i class="bi bi-play-circle "></i> Join Meeting</a>
+  </div>
+</div>
+<script>
+  document.getElementById("phone").value = specialUID;
+</script>
+<script src="../dyte/usrjoin.js"></script>
+</body></html>
